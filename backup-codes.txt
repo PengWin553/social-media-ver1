@@ -1,0 +1,549 @@
+ <!-- MODAL UPDATE -->
+            <!-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Update Post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updatePostForm" enctype="multipart/form-data">
+                            <input type="hidden" id="updatePostId">
+                            <div class="mb-3">
+                                <textarea id="updatePostName" maxlength="500" class="textarea"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <input type="file" name="image_input" id="updatePicture" class="form-control"> 
+                            
+                                <img id="currentPicture" class="img-thumbnail mt-2" alt="Current Picture">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdatePost">Update</button>
+                    </div>
+                    </div>
+                </div>
+            </div> -->
+
+<!-- SEARCH RESULTS PAGE -->
+
+<?php
+include('connection.php');
+
+session_start();
+
+if (!isset($_SESSION["first_name"])) {
+    header("location:../index.php");
+}
+
+$first_name = $_SESSION["first_name"];
+$last_name = $_SESSION["last_name"];
+$user_id =  $_SESSION["user_id"];
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/profile-page.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav style="background: white;">
+            <div class="topnav">
+                <div class="left-side">
+                    <div>
+                        <i class='bx bxl-facebook-circle facebook-icon'></i>
+                    </div>
+
+                    <form action="details.php" method="post">
+                        <input type="text" placeholder="Search..." name="search" id="search">
+                    </form>
+
+                    <div class="col-md-5">
+                        <div class="list-group" id="show-list">
+                            <!-- Here autocomplete list will be display -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="right-side">
+                    <div class="dropdown">
+                        <span>Mouse over me</span>
+                        <div class="dropdown-content">
+                            <a href="logout.php">
+                                <p>Logout</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Search Results</h1>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="list-group">
+                        <?php
+                        if (isset($_GET['query'])) {
+                            $inpText = $_GET['query'];
+                            $sql = 'SELECT first_name, last_name FROM userInfo_table WHERE first_name LIKE :first_name';
+                            $stmt = $connection->prepare($sql);
+                            $stmt->execute(['first_name' => '%' . $inpText . '%']);
+                            $result = $stmt->fetchAll();
+
+                            if ($result) {
+                                foreach ($result as $row) {
+                                    echo '<a href="#" class="list-group-item list-group-item-action border-1">' . $row['first_name'] . ' ' . $row['last_name'] . '</a>';
+                                }
+                            } else {
+                                echo '<p class="list-group-item border-1">No Record</p>';
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/searchName.js"></script>
+    <script src="../js/frontEnds.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+//SEARCH RESULTS PAGE
+<?php
+include('connection.php');
+
+session_start();
+
+if (!isset($_SESSION["first_name"])) {
+    header("location:../index.php");
+}
+
+$first_name = $_SESSION["first_name"];
+$last_name = $_SESSION["last_name"];
+$user_id =  $_SESSION["user_id"];
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/profile-page.css">
+    <link rel="stylesheet" href="../css/search-results-page.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+   <?php include('global-header.php') ?>
+
+    <main>
+        <div class="main-result-display-container">
+            <div class="result-card-container1">
+            <?php
+                    if (isset($_GET['query'])) {
+                        $inpText = $_GET['query'];
+                        $sql = 'SELECT user_id, first_name, last_name FROM userInfo_table WHERE first_name LIKE :first_name';
+                        $stmt = $connection->prepare($sql);
+                        $stmt->execute(['first_name' => '%' . $inpText . '%']);
+                        $result = $stmt->fetchAll();
+
+                        if ($result) {
+                            foreach ($result as $row) {
+                                echo '
+                                    <div class="result-card1" data-userid="' . $row['user_id'] . '" id="result-card1">
+                                        <div class="image-container1">
+                                            <img src="../default_images/image placeholder.webp" alt="This is a picture">
+                                            <div class="link-container1">
+                                                <a href="#" class="search-result-card1">' . $row['first_name'] . ' ' . $row['last_name'] . '</a>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="follow-container1">
+                                            <p>Follow</p>
+                                        </div>
+
+                                    </div>
+                                ';
+                            }
+                        } else {
+                            echo '<p class="list-group-item border-1">No Record</p>';
+                        }
+                    }
+                ?>
+            </div>
+        </div>
+       
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/searchName.js"></script>
+    <script src="../js/frontEnds.js"></script>
+
+
+    <!-- just to check the id is working -->
+    <script>
+        document.querySelectorAll('.result-card1').forEach(item => {
+            item.addEventListener('click', event => {
+                console.log(item.dataset.userid);
+            })
+        });
+    </script>
+
+</body>
+</html>
+
+
+// search results page WITH FOLLOW AND UNFOLLOW OPTIONS
+
+<?php
+include('connection.php');
+
+session_start();
+
+if (!isset($_SESSION["first_name"])) {
+    header("location:../index.php");
+}
+
+$first_name = $_SESSION["first_name"];
+$last_name = $_SESSION["last_name"];
+$user_id =  $_SESSION["user_id"];
+
+// Function to check if a user is already followed
+function is_followed($follower_id, $followed_id, $connection) {
+    $sql = "SELECT * FROM followers WHERE follower_id = :follower_id AND followed_id = :followed_id";
+    $stmt = $connection->prepare($sql);
+    $stmt->execute(['follower_id' => $follower_id, 'followed_id' => $followed_id]);
+    return $stmt->rowCount() > 0;
+}
+
+// Function to follow or unfollow a user
+function follow_unfollow_user($follower_id, $followed_id, $connection) {
+    if (is_followed($follower_id, $followed_id, $connection)) {
+        // Unfollow
+        $sql = "DELETE FROM followers WHERE follower_id = :follower_id AND followed_id = :followed_id";
+        $stmt = $connection->prepare($sql);
+        $stmt->execute(['follower_id' => $follower_id, 'followed_id' => $followed_id]);
+        return false; // Unfollowed
+    } else {
+        // Follow
+        $sql = "INSERT INTO followers (follower_id, followed_id, follow_date) VALUES (:follower_id, :followed_id, NOW())";
+        $stmt = $connection->prepare($sql);
+        $stmt->execute(['follower_id' => $follower_id, 'followed_id' => $followed_id]);
+        return true; // Followed
+    }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/profile-page.css">
+    <link rel="stylesheet" href="../css/search-results-page.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <?php include('global-header.php') ?>
+
+    <main>
+        <div class="main-result-display-container">
+            <div class="result-card-container1">
+                <?php
+                if (isset($_GET['query'])) {
+                    $inpText = $_GET['query'];
+                    $sql = 'SELECT user_id, first_name, last_name FROM userInfo_table WHERE first_name LIKE :first_name';
+                    $stmt = $connection->prepare($sql);
+                    $stmt->execute(['first_name' => '%' . $inpText . '%']);
+                    $result = $stmt->fetchAll();
+
+                    if ($result) {
+                        foreach ($result as $row) {
+                            $followStatus = is_followed($user_id, $row['user_id'], $connection) ? 'Unfollow' : 'Follow';
+                            echo '
+                                <div class="result-card1" data-userid="' . $row['user_id'] . '" id="result-card1">
+                                    <div class="image-container1">
+                                        <img src="../default_images/image placeholder.webp" alt="This is a picture">
+                                        <div class="link-container1">
+                                            <a href="#" class="search-result-card1">' . $row['first_name'] . ' ' . $row['last_name'] . '</a>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="follow-container1">
+                                        <button class="follow-btn" data-follower="' . $user_id . '" data-followed="' . $row['user_id'] . '">' . $followStatus . '</button>
+                                    </div>
+                                </div>
+                            ';
+                        }
+                    } else {
+                        echo '<p class="list-group-item border-1">No Record</p>';
+                    }
+                }
+                ?>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/searchName.js"></script>
+    <script src="../js/frontEnds.js"></script>
+
+    <script>
+        // Cloning and showing the search results
+        $(document).ready(function () {
+            $('#searchResults').on('input', function () {
+                var query = $(this).val();
+                var resultItems = $('.search-result');
+                resultItems.hide().filter(function () {
+                    return $(this).text().toLowerCase().indexOf(query.toLowerCase()) !== -1;
+                }).show();
+            });
+
+            // Follow or Unfollow Button
+            $('.follow-btn').click(function () {
+                var follower_id = $(this).data('follower');
+                var followed_id = $(this).data('followed');
+                var button = $(this);
+                $.ajax({
+                    url: 'follow.php',
+                    type: 'post',
+                    data: {follower_id: follower_id, followed_id: followed_id},
+                    success: function (response) {
+                        if (response == 'followed') {
+                            button.text('Unfollow');
+                        } else if (response == 'unfollowed') {
+                            button.text('Follow');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+//PROFILE PAGE ------------------------------>>>>>>>>>>>>>>>>
+
+<?php
+include('connection.php');
+
+session_start();
+
+if (!isset($_SESSION["first_name"])) {
+    header("location:../index.php");
+}
+
+$first_name = $_SESSION["first_name"];
+$last_name = $_SESSION["last_name"];
+$user_id =  $_SESSION["user_id"];
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/profile-page.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+   <?php include('global-header.php') ?>
+
+    <main>
+        <div class="main-profile-display-container">
+            <p> Hello <?php echo $first_name . ' ' . $last_name ?> </p>
+            <div class="display-picture-container">
+                <span>Hello</span>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <!-- ADD POST BUTTON -->
+            <button type="button" data-bs-toggle="modal" data-bs-target="#createPostModal" id="btn-create-post">Create a post</button>
+
+            <!-- ADD POST MODAL -->
+            <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="createPostModalLabel">Add Product</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createPostForm" enctype="multipart/form-data">
+                                <input type="file" name="image-input" id="picture" class="form-control" required>
+                                <img id="createPostImagePreview" class="img-thumbnail mt-2" alt="Image Preview" style="display: none;">
+                                <!-- <label for="text">Product Name</label>
+                                <input type="text" name="text" id="text" class="form-control"> -->
+                                <textarea id="text-input" name="text-input" placeholder="What's on your mind?" maxlength="500" class="textarea"></textarea>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btn-submit-post">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULT CONTAINER -->
+            <div class="resultcontainer">
+                <div id="resultBoxes" class="row"></div>
+            </div>
+
+            <!-- UPDATE MODAL -->
+            <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateModalLabel">Update Post</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="updatePostForm" enctype="multipart/form-data">
+                                <input type="text" id="updatePostId">
+                                <div class="mb-3">
+                                    <textarea id="updatePostName" maxlength="500" class="textarea"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="file" name="image_input" id="updatePicture" class="form-control"> 
+                                    <img id="updateImagePreview" class="img-thumbnail mt-2" alt="Image Preview" style="display: none;">
+                                    <img id="currentPicture" class="img-thumbnail mt-2" alt="Current Picture">
+                                    <button type="button" class="btn btn-sm btn-danger mt-2" id="removePictureBtn" style="display: none;">Remove Image</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnUpdatePost">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- COMMENTS MODAL -->
+             <div class="modal fade" id="commentsModal" tabindex="-1" aria-labelledby="CommentsModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="CommentsModalLabel">Comments</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="commentBody">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <input type="text" id="commentsPostId"> -->
+                            <textarea id="writeAComment" maxlength="500" class="textarea write-a-comment-textarea"></textarea>
+                            <!-- <button type="button" class="btn btn-primary" id="btn-submit-comment"> -->
+                            <i class='bx bxs-up-arrow-alt' id="btn-submit-comment"></i>
+                            <!-- </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/searchName.js"></script>
+    <script src="../js/frontEnds.js"></script>
+        
+</body>
+
+</html>
+
+//LOAD COMMENTS .php
+
+<?php
+include('connection.php');
+
+session_start();
+
+if (!isset($_SESSION["first_name"])) {
+    header("location:../index.php");
+}
+
+if (isset($_POST['post_id'])) {
+    $post_id = $_POST['post_id'];
+
+    try {
+        $stmt = $connection->prepare("SELECT comments.comment, userInfo_table.first_name, userInfo_table.last_name FROM comments INNER JOIN userInfo_table ON comments.user_id = userInfo_table.user_id WHERE comments.post_id = :post_id");
+        $stmt->bindParam(':post_id', $post_id);
+        $stmt->execute();
+
+        $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($comments) > 0) {
+            foreach ($comments as $comment) {
+                echo '
+                <div>
+                    <img src="../default_images/image placeholder.webp" class="default-image" alt="Profile Picture">
+                    <p class="post-user-name">' . $comment['first_name'] . ' ' . $comment['last_name'] . '</p>
+                    <p class="post-comment">' . $comment['comment'] . '</p>
+
+                    <div class="comments-icon-container">
+                        <i class="bx bx-edit-alt comment-icon icon-update"></i>
+                        <i class="bx bx-trash comment-icon icon-delete" ></i>
+                    </div>
+                  
+                </div>';
+            }
+        } else {
+            echo '<p>No comments yet.</p>';
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+} else {
+    echo "Invalid data received.";
+}
+?>
