@@ -1,29 +1,3 @@
-<style>
-  .search-bar-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            margin-top: 1em;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 25px;
-            color: #777;
-            font-size: 20px;
-        }
-
-        .search-bar {
-            width: calc(100% - 30px);
-            margin-top: 1em;
-            background: #F0F2F5;
-            margin-left: 0.3em;
-            font-weight: 300;
-        }
-
-</style>
-
 <header>
     <nav>
         <div class="topnav">
@@ -35,7 +9,7 @@
                         </i>
                     <!-- </a> -->
 
-                <form action="details.php" method="post" style="padding: 0px;">
+                <form action="details.php" method="post" class="search-bar-form">
                     <!-- <input type="text" placeholder="Search Facebook" name="search" id="search" class="search-bar"> -->
 
                      <!-- Search Bar -->
@@ -60,7 +34,7 @@
                     <!-- <span class="logoutBtn">Logout</span> -->
                     <img src="../default_images/default facebook photo.jpg" alt="profile picture" class="small-profile extra-small-profile">
                     <div class="dropdown-content logoutBtn">
-                        <a href="logout.php">
+                        <a href="logout.php" class="logout-press">
                             <p>Logout</p>
                         </a>
                     </div>
@@ -72,7 +46,7 @@
 
 <script>
 document.getElementById("facebookIcon").addEventListener("click", function() {
-    window.location.href = "profile-page.php";
+    window.location.href = "news-feed.php";
 });
 
 document.getElementById("btnLogout").addEventListener("click", function() {

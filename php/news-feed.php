@@ -24,14 +24,6 @@ $user_id =  $_SESSION["user_id"];
     <link rel="stylesheet" href="../css/profile-page.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        .left-side-panel{
-            float: left;
-            /* background: grey; */
-            position: absolute;
-        }
-    </style>
 </head>
 
 <body>
@@ -40,11 +32,11 @@ $user_id =  $_SESSION["user_id"];
 
         <aside class="left-side-panel">
             <div class="main-div">
-                <div class="small-profile-container" style="margin-left: 10px;">
-                    <img src="../default_images/default facebook photo.jpg" alt="post profile picture" class="small-profile">
+                <div class="small-profile-container">
+                    <img src="../default_images/default facebook photo.jpg" alt="post profile picture" class="small-profile go-to-profile" id="goToProfile">
                 </div>
 
-                <p style="font-weight: 700"> <?php echo $first_name . ' ' . $last_name ?> </p>
+                <p class="user-name-display"> <?php echo $first_name . ' ' . $last_name ?> </p>
             </div>
         </aside>
 
@@ -135,41 +127,28 @@ $user_id =  $_SESSION["user_id"];
                 </div>
             </div>
 
-            <!-- COMMENTS MODAL -->
-            <div class="modal fade" id="commentsModal" tabindex="-1" aria-labelledby="CommentsModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="CommentsModalLabel">Comments</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="commentBody">
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" id="commentsPostId">
-                            <textarea id="writeAComment" maxlength="500" class="textarea write-a-comment-textarea"></textarea>
-                            <i class='bx bxs-up-arrow-alt' id="btn-submit-comment"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php include('comments-modal.php') ?>
 
         </div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="../js/loadNewsFeed.js"></script> 
     <script src="../js/createPost.js"></script>
     <script src="../js/updatePost.js"></script>
     <script src="../js/deletePost.js"></script>
-
     <script src="../js/comments.js"></script>
     <script src="../js/searchName.js"></script>
     <script src="../js/frontEnds.js"></script>
-    <!-- <script src="../js/loadData.js"></script> -->
+
+    <script>
+        document.getElementById("goToProfile").addEventListener("click", function() {
+            window.location.href = "profile-page.php";
+        });
+    </script>
+
 </body>
 
 </html>
+

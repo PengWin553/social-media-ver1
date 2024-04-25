@@ -20,15 +20,15 @@ if (isset($_POST['post_id'])) {
         if (count($comments) > 0) {
             foreach ($comments as $comment) {
                 echo '
-                <div>
-                    <img src="../default_images/image placeholder.webp" class="default-image" alt="Profile Picture">
-                    <p class="post-user-name">' . $comment['first_name'] . ' ' . $comment['last_name'] . '</p>
-                    <p class="post-comment">' . $comment['comment'] . '</p>
-
+                <div class="comment-card">
                     <div class="comments-icon-container">
                         <i class="bx bx-edit-alt comment-icon icon-update" data-comment-id="' . $comment['comment_id'] . '"></i>
                         <i class="bx bx-trash comment-icon icon-delete" data-comment-id="' . $comment['comment_id'] . '"></i>
                     </div>
+
+                    <img src="../default_images/default facebook photo.jpg" class="default-image" alt="Profile Picture">
+                    <p class="post-user-name p-tags comment-username">' . $comment['first_name'] . ' ' . $comment['last_name'] . '</p>
+                    <p class="post-comment p-tags">' . $comment['comment'] . '</p>
                 </div>';
             }
         } else {

@@ -63,7 +63,7 @@ $(document).ready(function() {
     $(document).on("click", ".icon-update", function() {
         var commentId = $(this).data("comment-id");
         var commentText = $(this).parent().siblings(".post-comment").text().trim();
-        var commentHTML = '<input type="text" class="form-control" id="updateCommentText" style="width: 100%;" value="' + commentText + '">';
+        var commentHTML = '<input type="text" class="comments-textbox" id="updateCommentText" style="width: 100%;" value="' + commentText + '">';
         $(this).parent().siblings(".post-comment").html(commentHTML);
         $(this).removeClass("icon-update").addClass("icon-confirm").css("color", "green");
     });
