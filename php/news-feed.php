@@ -39,7 +39,6 @@ $user_id =  $_SESSION["user_id"];
     <main>
 
         <aside class="left-side-panel">
-
             <div class="main-div">
                 <div class="small-profile-container" style="margin-left: 10px;">
                     <img src="../default_images/default facebook photo.jpg" alt="post profile picture" class="small-profile">
@@ -162,7 +161,7 @@ $user_id =  $_SESSION["user_id"];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../js/loadNewsFeed.js"></script>
+    <script src="../js/loadNewsFeed.js"></script> 
     <script src="../js/createPost.js"></script>
     <script src="../js/updatePost.js"></script>
     <script src="../js/deletePost.js"></script>
@@ -170,6 +169,7 @@ $user_id =  $_SESSION["user_id"];
     <script src="../js/comments.js"></script>
     <script src="../js/searchName.js"></script>
     <script src="../js/frontEnds.js"></script>
+    <!-- <script src="../js/loadData.js"></script> -->
 </body>
 
 </html>
