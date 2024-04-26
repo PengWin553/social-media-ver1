@@ -36,6 +36,8 @@ $user_id =  $_SESSION["user_id"];
                     <img src="../default_images/default facebook photo.jpg" alt="post profile picture" class="small-profile go-to-profile" id="goToProfile">
                 </div>
 
+           
+
                 <p class="user-name-display"> <?php echo $first_name . ' ' . $last_name ?> </p>
             </div>
         </aside>
