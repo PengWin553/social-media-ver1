@@ -36,15 +36,12 @@ $user_id =  $_SESSION["user_id"];
 
             <div class="left-side-sub-info-container">
                 <div class="profile-picture-container">
-                    <!-- put your picture inside here -->
-                    <img src="../default_images/default facebook photo.jpg" alt="profile picture" class="big-profile">
-
-                    <div class="add-profile-pic">
-                        <i class='bx bxs-camera' data-bs-toggle="modal" data-bs-target="#addProfilePhotoModal" id="btn-create-post"></i>
-                    </div>
+                    <img src="../default_images/default facebook photo.jpg" alt="profile picture" class="big-profile" id="big-profile">
+                </div>
+                <div class="add-profile-pic">
+                        <i class='bx bxs-camera' data-bs-toggle="modal" data-bs-target="#addProfilePhotoModal" id="btn-update-profile"></i>
                 </div>
                 <p class="user-name"> <?php echo $first_name . ' ' . $last_name ?> </p>
-
             </div>
         </div>
 
@@ -72,19 +69,19 @@ $user_id =  $_SESSION["user_id"];
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <!-- <h1 class="modal-title fs-5" id="addProfilePhotoModalLabel">Create a post</h1> -->
+                            <h1 class="modal-title fs-5 update-profile" id="addProfilePhotoModalLabel">Update Profile</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form id="addProfilePhotoForm" enctype="multipart/form-data">
-                                <input type="file" name="image-input" id="picture" class="form-control" required>
-                                <img id="addProfilePhotoImagePreview" class="img-thumbnail mt-2" alt="Image Preview" style="display: none;">
+                                <input type="file" name="profileImageInput" id="profileImageInput" class="form-control" required>
+                                <img id="profilePhotoImagePreview" class="img-thumbnail mt-2" alt="Image Preview" style="display: none;">
                             </form>
                         </div>
                         <div class="modal-footer">
 
-                            <!-- tiral -->
-                            <button class="send-button" id="btn-submit-post">
+                            <!-- UPDATE PROFILE PICTURE -->
+                            <button class="send-button" id="btn-submit-profile">
                                 <div class="svg-wrapper-1">
                                     <div class="svg-wrapper">
                                     <svg
@@ -103,6 +100,7 @@ $user_id =  $_SESSION["user_id"];
                                     </div>
                                     <span></span>
                             </button>
+
                         </div>
                     </div>
                 </div>
@@ -204,6 +202,10 @@ $user_id =  $_SESSION["user_id"];
     <script src="../js/comments.js"></script>
     <script src="../js/searchName.js"></script>
     <script src="../js/frontEnds.js"></script>
+
+    <script src="../js/loadProfilePreview.js"></script>
+    <script src="../js/updateProfile.js"></script>
+
 
         
 </body>

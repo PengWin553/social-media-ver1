@@ -929,8 +929,8 @@ p.comment-username{
 .bxs-camera{
     font-size: 25px;
     color: rgb(87, 87, 87);
-    margin-left: 5em;
-    margin-top: -1.7em;
+    margin-left: -1.1em;
+    margin-top: 2.7em;
     position: absolute;
     cursor: pointer;
     background: #E4E6EB;
@@ -962,4 +962,12 @@ p.comment-username{
     align-items: center;
     background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.9)), /* Adjust the gradient color and opacity as needed */
                 url('../default_images/tuyu cult wallpaper.jpg') center/cover;
+}
+
+h1.update-profile{
+    text-align: center;
+}
+
+.big-profile{
+    object-fit: cover;
 }
