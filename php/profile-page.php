@@ -32,12 +32,20 @@ $user_id =  $_SESSION["user_id"];
         <div class="main-profile-display-container">
             <div class="display-picture-container">
                 <span></span>
+
+              
             </div>
+
+               
 
             <div class="left-side-sub-info-container">
                 <div class="profile-picture-container">
                     <!-- put your picture inside here -->
                     <img src="../default_images/default facebook photo.jpg" alt="profile picture" class="big-profile">
+
+                    <div class="add-profile-pic">
+                        <i class='bx bxs-image-add'></i>
+                    </div>
                 </div>
                 <p class="user-name"> <?php echo $first_name . ' ' . $last_name ?> </p>
 
@@ -46,8 +54,6 @@ $user_id =  $_SESSION["user_id"];
 
         <div class="main-container">
             <!-- ADD POST BUTTON -->
-            <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#createPostModal" id="btn-create-post">Create a post</button> -->
-
             <div class="btn-create-post-container">
                 <div class="main-div">
                     <div class="small-profile-container">

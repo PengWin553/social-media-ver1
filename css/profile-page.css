@@ -298,6 +298,7 @@ input{
 
 body{
     width: 100vw;
+    background: #F0F2F5;
 }
 
 /* .resultcontainer {
@@ -917,3 +918,21 @@ p.comment-username{
     width: fit-content;
     height: fit-content;
 }
+
+.bxs-image-add{
+    font-size: 40px;
+    color: rgb(75, 160, 75);
+    margin-left: 4em;
+    margin-top: -1.5em;
+    position: absolute;
+    cursor: pointer;
+}
+
+.bxs-image-add:hover{
+    color: rgb(4, 107, 4);
+}
+
+.add-profile-pic{
+    background: white;
+}
+
