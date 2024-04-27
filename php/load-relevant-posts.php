@@ -3,27 +3,24 @@ include('connection.php');
 session_start();
 
 $user_id = $_SESSION["user_id"];
-$first_name = $_SESSION["first_name"];
-$last_name = $_SESSION["last_name"];
 
 try {
     $query = "SELECT p.*, CONCAT('../images/', p.image_input) AS picture_url, u.user_id, u.first_name, u.last_name
               FROM posts_table p
-              INNER JOIN followers f ON p.user_id = f.followed_id
+              LEFT JOIN followers f1 ON p.user_id = f1.followed_id AND f1.follower_id = :user_id
+              LEFT JOIN followers f2 ON p.user_id = f2.follower_id AND f2.followed_id = :user_id
               INNER JOIN userInfo_table u ON p.user_id = u.user_id
-              WHERE f.follower_id = :user_id OR p.user_id = :user_id OR f.followed_id = :user_id
-              ORDER BY post_id DESC"; 
+              WHERE p.user_id = :user_id OR f1.followed_id IS NOT NULL AND f2.follower_id IS NOT NULL
+              ORDER BY p.post_id DESC"; 
 
     $statement = $connection->prepare($query);
     $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    // Add first_name and last_name to the data array
+    // Add user_id, first_name, and last_name to the data array
     $data = [
         "user_id" => $user_id,
-        "first_name" => $first_name,
-        "last_name" => $last_name,
         "result" => $result
     ];
 
