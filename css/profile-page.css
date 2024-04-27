@@ -507,7 +507,7 @@ main{
 
 .main-profile-display-container{
     background: rgb(255, 255, 255); 
-    height: 110vh;
+    height: 87vh;
     /* border: 1px solid grey; */
 }
 
@@ -516,10 +516,12 @@ main{
 }
 
 .display-picture-container{
-    width: 1374px;
-    height: 550px;
+    width: 1114px;
+    height: 450px;
     background: #C6C6C6;
     border-radius: 5px;
+    padding: 5px;
+    background-image: url('../default_images/tuyu cult wallpaper.jpg');
 }
 
 .main-profile-display-container .user-name{
@@ -541,20 +543,16 @@ main{
 .profile-picture-container{
     background: rgb(152, 152, 152);
     border: 2px solid white;
-    width: 200px;
-    height: 200px;
+    width: 170px;
+    height: 170px;
     border-radius: 100px;
     position: relative;
     /* margin-left: -65em; */
     /* margin-top: -4em; */
-    margin-left: 4em;
+    margin-left: 11em;
     margin-top: -3em;
 }
 
-.display-picture-container{
-    margin-top: 1.5em;
-    padding: 5px;
-}
 
 .btn-create-post-container{
     width: 716px;
@@ -581,6 +579,7 @@ main{
 
 .small-profile-container{
     /* background: yellowgreen; */
+    position: sticky;
     width: 50.86px;
     height: 51px;
     margin-right: 10px;
@@ -590,14 +589,12 @@ main{
 .like-text-box-btn{
     border: none;
     background: #F0F2F5;
-    width: 635.28px;
+    width: 625.28px;
     height: 51px;
     border-radius: 15px;
     color: #313337;
-}
-
-.like-text-box-btn{
     padding-left: 0.8em;
+    margin-left: -1em;
 }
 
 .resultcontainer{
@@ -663,6 +660,12 @@ main{
 } 
 
 .small-profile{
+    width: 51px;
+    border-radius: 30px;
+    margin-left: -1em;
+}
+
+.newsfeed-small-profile{
     width: 51px;
     border-radius: 30px;
 }
@@ -923,13 +926,20 @@ p.comment-username{
     height: fit-content;
 }
 
-.bxs-image-add{
-    font-size: 40px;
-    color: rgb(75, 160, 75);
-    margin-left: 4em;
-    margin-top: -1.5em;
+.bxs-camera{
+    font-size: 25px;
+    color: rgb(87, 87, 87);
+    margin-left: 5em;
+    margin-top: -1.7em;
     position: absolute;
     cursor: pointer;
+    background: #E4E6EB;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.bxs-camera:hover{
+    background: rgb(213, 214, 216)
 }
 
 .bxs-image-add:hover{
@@ -942,4 +952,14 @@ p.comment-username{
 
 .bottom-options-container{
     border-top: 1px solid rgb(213, 212, 212);
+}
+
+.sub-main-profile-display-container {
+    width: 100vw;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.9)), /* Adjust the gradient color and opacity as needed */
+                url('../default_images/tuyu cult wallpaper.jpg') center/cover;
 }

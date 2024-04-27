@@ -30,13 +30,9 @@ $user_id =  $_SESSION["user_id"];
 
     <main>
         <div class="main-profile-display-container">
-            <div class="display-picture-container">
-                <span></span>
-
-              
-            </div>
-
-               
+        <div class="sub-main-profile-display-container">
+            <div class="display-picture-container"  id="profile-image"></div>
+        </div>
 
             <div class="left-side-sub-info-container">
                 <div class="profile-picture-container">
@@ -44,7 +40,7 @@ $user_id =  $_SESSION["user_id"];
                     <img src="../default_images/default facebook photo.jpg" alt="profile picture" class="big-profile">
 
                     <div class="add-profile-pic">
-                        <i class='bx bxs-image-add'></i>
+                        <i class='bx bxs-camera' data-bs-toggle="modal" data-bs-target="#addProfilePhotoModal" id="btn-create-post"></i>
                     </div>
                 </div>
                 <p class="user-name"> <?php echo $first_name . ' ' . $last_name ?> </p>
@@ -53,6 +49,7 @@ $user_id =  $_SESSION["user_id"];
         </div>
 
         <div class="main-container">
+
             <!-- ADD POST BUTTON -->
             <div class="btn-create-post-container">
                 <div class="main-div">
@@ -67,6 +64,47 @@ $user_id =  $_SESSION["user_id"];
                     <div class="option-container option-one"><i class='bx bx-text'><span>Text </span> </i> </div>
                     <div class="option-container option-two"> <i class='bx bx-image-add' > <span>Text with photo </span>  </i></div>
                     <div class="option-container option-three"> <i class='bx bx-image-add' ><span>Photo</span>  </i> </div>
+                </div>
+            </div>
+
+            <!-- ADD PROFILE PHOTO -->
+            <div class="modal fade" id="addProfilePhotoModal" tabindex="-1" aria-labelledby="addProfilePhotoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!-- <h1 class="modal-title fs-5" id="addProfilePhotoModalLabel">Create a post</h1> -->
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addProfilePhotoForm" enctype="multipart/form-data">
+                                <input type="file" name="image-input" id="picture" class="form-control" required>
+                                <img id="addProfilePhotoImagePreview" class="img-thumbnail mt-2" alt="Image Preview" style="display: none;">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+
+                            <!-- tiral -->
+                            <button class="send-button" id="btn-submit-post">
+                                <div class="svg-wrapper-1">
+                                    <div class="svg-wrapper">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        height="24"
+                                    >
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path
+                                        fill="currentColor"
+                                        d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                                        ></path>
+                                    </svg>
+                                    </div>
+                                    </div>
+                                    <span></span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -167,7 +205,6 @@ $user_id =  $_SESSION["user_id"];
     <script src="../js/searchName.js"></script>
     <script src="../js/frontEnds.js"></script>
 
-   
         
 </body>
 

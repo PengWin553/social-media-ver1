@@ -33,7 +33,7 @@ $user_id =  $_SESSION["user_id"];
         <aside class="left-side-panel">
             <div class="main-div">
                 <div class="small-profile-container">
-                    <img src="../default_images/default facebook photo.jpg" alt="post profile picture" class="small-profile go-to-profile" id="goToProfile">
+                    <img src="../default_images/default facebook photo.jpg" alt="post profile picture" class="newsfeed-small-profile go-to-profile" id="goToProfile">
                 </div>
 
            

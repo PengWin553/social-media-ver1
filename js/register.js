@@ -43,6 +43,6 @@ $("#btn-signup").click(function () {
             }
         });
     } else {
-        alert("Please enter a category name.");
+        alert("Please enter your name.");
     }
 });
