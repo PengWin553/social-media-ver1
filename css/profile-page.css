@@ -343,7 +343,8 @@ body{
 }
 
 .parent-container{
-    display: flex; justify-content: space-between;
+    /* display: flex; justify-content: space-between; */
+    /* background: green; */
 }
 
 .post-profile-container{
@@ -351,22 +352,24 @@ body{
     justify-content: center; 
     align-items: center; 
     /* background: rgb(245, 217, 165); */
-    width: 150px;
-    margin-top: 0.8em;
-    margin-left: 0.34em;
+    float: left;
+    padding: 12px;
 }
 
 .profile-picture{
     width: 51px; border-radius: 30px;
+    /* background: red; */
 }
 
 .post-user-name{
+    position: relative;
     display: inline-block;
     white-space: nowrap;
     margin-top: -4px;
     margin-left: 0.5em;
-    font-weight: 700;
+    /* font-weight: 700; */
     font-size: 17px;
+    /* background: violet; */
 }
 
 .post-user-id{
@@ -791,7 +794,8 @@ main{
 }
 
 .card-text{
-    padding-bottom: 5px;
+    padding-left: 0.6em;
+    margin-top: 1px;
 }
 
 .left-side-panel{
@@ -936,3 +940,6 @@ p.comment-username{
     background: white;
 }
 
+.bottom-options-container{
+    border-top: 1px solid rgb(213, 212, 212);
+}

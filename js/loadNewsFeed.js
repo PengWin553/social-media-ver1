@@ -31,21 +31,21 @@ function loadData() {
                                 </div>`;
                         }
                         
-                        let profileImgStyle = (item.user_id !== userData.user_id) ? 'style="margin-left: 2.7em; margin-top: -0.1em; width: 51px;"' : '';
+                        let profileImgStyle = (item.user_id !== userData.user_id) ? '' : '';
                         let resultBox = `
                             <div class="resultBox">
                                 <div class=".card-columns">
                                     <div class="card">
-                                        <div class="parent-container" >
+                                        <div class="parent-container">
                                             <div class="post-profile-container" >
                                                 <img src="../default_images/default facebook photo.jpg" class="default-image card-img-top" alt="Profile Picture" ${profileImgStyle}>
-                                                <p class="post-user-name">${fullName}</p>
+                                                <p class="post-user-name"> <b> ${fullName} </b> </p>
                                                 <p class="post-user-id">${item.user_id} </p>
                                             </div>
                                             ${optionsHtml}
                                         </div>
                                         <div class="card-body" style="padding: 0;">
-                                            <p class="card-text" style="padding-left: 0.6em; margin-top: 25px;">${item.text_input}</p>
+                                            <p class="card-text">${item.text_input}</p>
                                             ${item.picture_url ?
                                                 `
                                                 <div class="image-container">
@@ -54,7 +54,7 @@ function loadData() {
                                                 `
                                                 : ''
                                             }
-                                            <div class="bottom-options-container" style="border-top: 1px solid grey;">
+                                            <div class="bottom-options-container">
                                                 <div class="like-button"><i class='bx bxs-like' ></i> <span>Like</span> </div>
                                                 <div class="comment-button open-comments-modal" id="${item.post_id}"><i class='bx bxs-comment'></i> <span>Comment</span> </div>
                                                 <div class="share-button"><i class='bx bxs-share'></i><span> </span>Share</div>

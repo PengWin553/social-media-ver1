@@ -52,7 +52,7 @@ function loadData() {
                                             `
                                             : ''
                                         }
-                                        <div class="bottom-options-container" style="border-top: 1px solid grey;">
+                                        <div class="bottom-options-container" >
                                             <div class="like-button"><i class='bx bxs-like' ></i> <span>Like</span> </div>
                                             <div class="comment-button open-comments-modal" id="${item.post_id}"><i class='bx bxs-comment'></i> <span>Comment</span> </div>
                                             <div class="share-button"><i class='bx bxs-share'></i><span> </span>Share</div>

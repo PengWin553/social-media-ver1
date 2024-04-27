@@ -17,7 +17,7 @@ function loadData() {
                     <div class="parent-container" >
                       <div class="post-profile-container" >
                         <img src="../default_images/default facebook photo.jpg" class="default-image card-img-top" alt="Profile Picture">
-                        <p class="post-user-name">${fullName}</p>
+                        <p class="post-user-name"> <b>  ${fullName} </b></p>
                         <p class="post-user-id">${userData.user_id} </p>
                       </div>
                       <div class="other-options-container">
@@ -37,7 +37,7 @@ function loadData() {
                       </div>
                     </div>
                     <div class="card-body">
-                      <p class="card-text">${item.text_input}</p>
+                      <p class="card-text" style="margin-top: -14px; margin-left: -0.66em;">${item.text_input}</p>
                       </div>
                         ${item.picture_url ?
                         
