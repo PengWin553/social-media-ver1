@@ -1,5 +1,5 @@
 <?php
-include ('connection.php');
+include('connection.php');
 
 session_start();
 
@@ -8,7 +8,9 @@ $first_name = $_SESSION["first_name"];
 $last_name = $_SESSION["last_name"];
 
 try {
-    $query = "SELECT *, CONCAT('../images/', image_input) AS picture_url FROM posts_table WHERE user_id = :user_id ORDER BY post_id DESC"; 
+    $query = "SELECT *, CONCAT('../images/', image_input) AS picture_url, 
+              (SELECT COUNT(*) FROM post_likes WHERE post_likes.post_id = posts_table.post_id) AS likes_count
+              FROM posts_table WHERE user_id = :user_id ORDER BY post_id DESC";
     $statement = $connection->prepare($query);
     $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $statement->execute();
@@ -27,4 +29,3 @@ try {
     echo json_encode(['res' => 'error', 'message' => $th->getMessage()]);
 }
 ?>
-
