@@ -11,7 +11,7 @@ if (isset($_POST['query'])) {
   if ($result) {
     foreach ($result as $row) {
       // The link will lead you to the search-results-page with the user you are seeing
-      echo '<a href="search-results-page.php?query=' . urlencode($inpText) . '" class="list-group-item list-group-item-action border-1" style="background: yellow; width: 250px; text-align: left; background: white; border-radius: 5px;">' . $row['first_name'] . ' ' . $row['last_name'] . '</a>';
+      echo '<a href="search-results-page.php?query=' . urlencode($inpText) . '" class="list-group-item list-group-item-action border-1" style="background: yellow; width: 250px; text-align: left; background: white; border-radius: 5px; margin-left: 2.5em">' . $row['first_name'] . ' ' . $row['last_name'] . '</a>';
     }
   } else {
     echo '<p class="list-group-item border-1" style="background: yellow; width: 250px; text-align: left; background: white; border-radius: 5px; padding: 3px 5px;">No Record</p>';

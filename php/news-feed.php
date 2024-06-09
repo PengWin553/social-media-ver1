@@ -24,6 +24,8 @@ $user_id =  $_SESSION["user_id"];
     <link rel="stylesheet" href="../css/profile-page.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
+
 </head>
 
 <body>
@@ -136,6 +138,7 @@ $user_id =  $_SESSION["user_id"];
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../js/loadNewsFeed.js"></script> 
     <script src="../js/createPost.js"></script>
     <script src="../js/updatePost.js"></script>
@@ -143,6 +146,7 @@ $user_id =  $_SESSION["user_id"];
     <script src="../js/comments.js"></script>
     <script src="../js/searchName.js"></script>
     <script src="../js/frontEnds.js"></script>
+    <script src="../js/notifications.js"></script>
 
     <script>
         document.getElementById("goToProfile").addEventListener("click", function() {

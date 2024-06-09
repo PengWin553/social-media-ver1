@@ -29,8 +29,8 @@
 
             </div>
 
-            <div class="right-side">
-                <div class="dropdown">
+            <div class="right-side" style="background: pink; border: 1px solid black; width: fit-content;">
+                <div class="dropdown" style="background: green; width: fit-content;">
                     <!-- <span class="logoutBtn">Logout</span> -->
                     <img src="../default_images/default facebook photo.jpg" alt="profile picture" class="small-profile extra-small-profile">
                     <div class="dropdown-content logoutBtn">
@@ -39,6 +39,16 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Notification bell icon -->
+                <div class="dropdown" style="background: yellow;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span> <span class="glyphicon glyphicon-bell" style="font-size:18px;"></span></a>
+            
+                    <ul class="dropdown-menu">
+                    </ul>
+                </div>
+
+               
             </div>
         </div>
     </nav>

@@ -24,6 +24,7 @@ try {
         "result" => $result
     ];
 
+    // header('Content-type: application/json');
     echo json_encode(["res" => "success", "data" => $data]);
 } catch (PDOException $th) {
     echo json_encode(['res' => 'error', 'message' => $th->getMessage()]);
