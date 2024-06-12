@@ -1,4 +1,3 @@
-
 function loadDoc() {
     setInterval(function() {
         var xhttp = new XMLHttpRequest();
@@ -18,7 +17,7 @@ function loadDoc() {
                 }
             }
         };
-        xhttp.open("GET", "../php/data.php", true);
+        xhttp.open("GET", "../php/fetch-notifications.php", true);
         xhttp.send();
     }, 1000);
 }
