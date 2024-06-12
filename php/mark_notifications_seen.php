@@ -1,18 +1,22 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "test";
+include('connection.php');
+session_start();
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
+$user_id = $_SESSION["user_id"];
 
-$sql = "UPDATE notification_data SET seen = 1 WHERE seen = 0";
-$conn->query($sql);
+try {
+    // Update seen_status to 1 for all unseen notifications related to the posts created by the session user
+    $sql = "UPDATE notifications n
+            JOIN posts_table p ON n.post_id = p.post_id
+            SET n.seen_status = 1
+            WHERE n.seen_status = 0 AND p.user_id = :user_id";
+    
+    $stmt = $connection->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
 
-$conn->close();
+    echo json_encode(['res' => 'success']);
+} catch (PDOException $e) {
+    echo json_encode(['res' => 'error', 'message' => $e->getMessage()]);
+}
 ?>
