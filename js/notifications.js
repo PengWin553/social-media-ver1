@@ -1,24 +1,21 @@
 function loadDoc() {
     setInterval(function() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
+        fetch("../php/fetch-notifications.php")
+            .then(response => response.json())
+            .then(data => {
                 var countElement = document.getElementById("noti_number");
                 var contentElement = document.getElementById("noti_content");
 
-                if (response.count > 0) {
-                    countElement.innerHTML = response.count;
+                if (data.count > 0) {
+                    countElement.innerHTML = data.count;
                     countElement.style.display = 'inline-block';
-                    contentElement.innerHTML = response.notifications;
+                    contentElement.innerHTML = data.notifications;
                 } else {
                     countElement.style.display = 'none';
                     contentElement.innerHTML = '<p>No new notifications</p>';
                 }
-            }
-        };
-        xhttp.open("GET", "../php/fetch-notifications.php", true);
-        xhttp.send();
+            })
+            .catch(error => console.error('Error:', error));
     }, 1000);
 }
 
@@ -38,14 +35,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
             clickCount = 0; // Reset click count
 
             // Send AJAX request to mark notifications as seen
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "../php/mark_notifications_seen.php", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send();
-
-            // Hide the notification count after marking as seen
-            var countElement = document.querySelector(".count");
-            countElement.style.display = 'none';
+            fetch("../php/mark_notifications_seen.php", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: ''
+            })
+            .then(response => {
+                // Hide the notification count after marking as seen
+                var countElement = document.getElementById("noti_number");
+                countElement.style.display = 'none';
+            })
+            .catch(error => console.error('Error:', error));
         }
     };
 });
