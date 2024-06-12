@@ -203,7 +203,7 @@ $user_id =  $_SESSION["user_id"];
                         }
                     }
                 };
-                xhttp.open("GET", "data.php", true);
+                xhttp.open("GET", "fetch-notifications.php", true);
                 xhttp.send();
             }, 1000);
         }
