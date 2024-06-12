@@ -30,7 +30,20 @@
             </div>
 
             <div class="right-side" style="background: pink; border: 1px solid black; width: fit-content;">
-                <div class="dropdown" style="background: green; width: fit-content;">
+
+            <!-- table -->
+                <table width="100%" style="background-color: blue;color: white;  display: flex; justify-content: center; align-items: center; padding-right: 1em;">
+                    <tr style="background: purple; width: fit-content;">
+                    
+                        </td>        <td class="notification-counter" >
+                            <i class="fa fa-bell" aria-hidden="true" id="noti_icon" style="padding-right: 0.5em; font-size: 22px;"></i>
+                            <span class="count" id="noti_number"></span>
+
+                    </tr>
+                </table>
+                <div class="notification-content" id="noti_content" style="background: orange; border-radius: 5px; width: fit-content; padding: 0.7em;"></div>
+
+                <div class="dropdown" style="background: green; padding-left: 1em; padding-right: 0.5em;">
                     <!-- <span class="logoutBtn">Logout</span> -->
                     <img src="../default_images/default facebook photo.jpg" alt="profile picture" class="small-profile extra-small-profile">
                     <div class="dropdown-content logoutBtn">
@@ -40,17 +53,15 @@
                     </div>
                 </div>
 
-                <!-- Notification bell icon -->
-                <div class="dropdown" style="background: yellow;">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span> <span class="glyphicon glyphicon-bell" style="font-size:18px;"></span></a>
-            
-                    <ul class="dropdown-menu">
-                    </ul>
-                </div>
 
-               
             </div>
+
+
+          
+            
         </div>
+
+       
     </nav>
 </header>
 
@@ -63,3 +74,5 @@ document.getElementById("btnLogout").addEventListener("click", function() {
     window.location.href = "logout.php";
 });
 </script>
+
+

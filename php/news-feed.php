@@ -24,12 +24,44 @@ $user_id =  $_SESSION["user_id"];
     <link rel="stylesheet" href="../css/profile-page.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <style>
+        .notification-counter {
+            position: relative;
+            display: inline-block;
+        }
+        .notification-counter .count {
+            position: absolute;
+            top: -15px;
+            left: 1em;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 10px;
+            display: none; /* Initially hidden */
+            font-size: 14px;
+        }
+        .notification-content {
+            display: none; /* Initially hidden */
+            background-color: white;
+            color: black;
+            border: 1px solid #ddd;
+            padding: 10px;
+            position: absolute;
+            right: 15em;
+            top: 50px;
+            width: 300px;
+            z-index: 1000;
+            max-height: 400px; /* Optional: Limit height */
+            overflow-y: auto; /* Optional: Enable scrolling if content is too large */
+        }
+    </style>
 </head>
 
 <body>
     <?php include('global-header.php') ?>
+   
     <main>
 
         <aside class="left-side-panel">
@@ -37,9 +69,6 @@ $user_id =  $_SESSION["user_id"];
                 <div class="small-profile-container">
                     <img src="../default_images/default facebook photo.jpg" alt="post profile picture" class="newsfeed-small-profile go-to-profile" id="goToProfile">
                 </div>
-
-           
-
                 <p class="user-name-display"> <?php echo $first_name . ' ' . $last_name ?> </p>
             </div>
         </aside>
@@ -146,12 +175,67 @@ $user_id =  $_SESSION["user_id"];
     <script src="../js/comments.js"></script>
     <script src="../js/searchName.js"></script>
     <script src="../js/frontEnds.js"></script>
-    <script src="../js/notifications.js"></script>
+    <!-- <script src="../js/notifications.js"></script> -->
 
     <script>
         document.getElementById("goToProfile").addEventListener("click", function() {
             window.location.href = "profile-page.php";
         });
+    </script>
+
+    <script type="text/javascript">
+        function loadDoc() {
+            setInterval(function() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = JSON.parse(this.responseText);
+                        var countElement = document.getElementById("noti_number");
+                        var contentElement = document.getElementById("noti_content");
+
+                        if (response.count > 0) {
+                            countElement.innerHTML = response.count;
+                            countElement.style.display = 'inline-block';
+                            contentElement.innerHTML = response.notifications;
+                        } else {
+                            countElement.style.display = 'none';
+                            contentElement.innerHTML = '<p>No new notifications</p>';
+                        }
+                    }
+                };
+                xhttp.open("GET", "data.php", true);
+                xhttp.send();
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadDoc();
+
+            let clickCount = 0;
+
+            document.getElementById("noti_icon").onclick = function() {
+                clickCount++;
+                var contentElement = document.getElementById("noti_content");
+
+                if (clickCount === 1) {
+                    contentElement.style.display = "block";
+                } else if (clickCount === 2) {
+                    contentElement.style.display = "none";
+                    clickCount = 0; // Reset click count
+
+                    // Send AJAX request to mark notifications as seen
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", "mark_notifications_seen.php", true);
+                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhttp.send();
+
+                    // Hide the notification count after marking as seen
+                    var countElement = document.querySelector(".count");
+                    countElement.style.display = 'none';
+                }
+            };
+        });
+
     </script>
 
 </body>

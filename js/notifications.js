@@ -1,47 +1,52 @@
-$(document).ready(function(){
 
-    // load new notifications
+function loadDoc() {
+    setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var response = JSON.parse(this.responseText);
+                var countElement = document.getElementById("noti_number");
+                var contentElement = document.getElementById("noti_content");
 
-    // if the bell icon is clicked
-    $(document).on('click', '.dropdown-toggle', function(){
+                if (response.count > 0) {
+                    countElement.innerHTML = response.count;
+                    countElement.style.display = 'inline-block';
+                    contentElement.innerHTML = response.notifications;
+                } else {
+                    countElement.style.display = 'none';
+                    contentElement.innerHTML = '<p>No new notifications</p>';
+                }
+            }
+        };
+        xhttp.open("GET", "../php/data.php", true);
+        xhttp.send();
+    }, 1000);
+}
 
-        console.log('The notification icon is clicked.')
+document.addEventListener('DOMContentLoaded', (event) => {
+    loadDoc();
 
-        // set the count to empty
-        $('.count').html('');
-        // pass the 'yes' value to the load_unseen_notification() function
-        load_unseen_notification('yes');
+    let clickCount = 0;
 
-    });
+    document.getElementById("noti_icon").onclick = function() {
+        clickCount++;
+        var contentElement = document.getElementById("noti_content");
 
-    // updating the view with notifications using ajax
+        if (clickCount === 1) {
+            contentElement.style.display = "block";
+        } else if (clickCount === 2) {
+            contentElement.style.display = "none";
+            clickCount = 0; // Reset click count
 
-    // store the 'yes' value in the view parameter
-    // function load_unseen_notification(view = '')
-    // {
-    //     // make a post request to fetch.php by sending the 'yes' value
-    //     $.ajax({
-    //         url:"fetch.php",
-    //         method:"POST",
-    //         data:{view:view},
-    //         dataType:"json",
-    //         success:function(data)
-    //         {
-    //             $('.dropdown-menu').html(data.notification);
-    //             if(data.unseen_notification > 0)
-    //             {
-    //                 $('.count').html(data.unseen_notification);
-    //             }
-    //         }
-    //     });
-    // }
+            // Send AJAX request to mark notifications as seen
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "../php/mark_notifications_seen.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send();
 
-    // load_unseen_notification();
-
-    // // submit form and get new records =======================
-  
-    // setInterval(function(){
-    //     load_unseen_notification();;
-    // }, 5000);
-
+            // Hide the notification count after marking as seen
+            var countElement = document.querySelector(".count");
+            countElement.style.display = 'none';
+        }
+    };
 });
