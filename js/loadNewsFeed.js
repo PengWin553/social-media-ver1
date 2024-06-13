@@ -32,6 +32,15 @@ function loadData() {
                         }
 
                         let profileImgStyle = (item.user_id !== userData.user_id) ? '' : '';
+                        let imagesHtml = '';
+
+                        if (item.picture_urls && Array.isArray(item.picture_urls) && item.picture_urls.length > 0) {
+                            imagesHtml = item.picture_urls.map(url => `
+                                <div class="image-container">
+                                    <img src="${url}" class="post-image card-img-top" alt="Post Image">
+                                </div>`).join('');
+                        }
+
                         let resultBox = `
                             <div class="resultBox">
                                 <div class=".card-columns">
@@ -46,10 +55,7 @@ function loadData() {
                                         </div>
                                         <div class="card-body" style="padding: 0;">
                                             <p class="card-text">${item.text_input}</p>
-                                            ${item.picture_url ?
-                                                `<div class="image-container">
-                                                    <img src="${item.picture_url}" class="post-image card-img-top" alt="Post Image">
-                                                </div>` : ''}
+                                            ${imagesHtml}
                                             <div class="bottom-options-container">
                                                 <div class="like-button" data-post-id="${item.post_id}" data-liked="${item.is_liked ? 'true' : 'false'}">
                                                     <i class='bx bxs-like' style="color: ${item.is_liked ? 'blue' : 'initial'}"></i> <span></span> <span class="like-count">${item.like_count || 0}</span>
@@ -107,7 +113,7 @@ function loadData() {
             }
         } catch (error) {
             console.error("Error parsing JSON:", error);
-            alert("An unexpected error occurred. Please try again later.");
+            // alert("An unexpected error occurred. Please try again later.",);
         }
     }).fail(function(xhr, status, error) {
         console.error("An error occurred while fetching product data:", error);

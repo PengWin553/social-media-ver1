@@ -71,7 +71,7 @@ $user_id =  $_SESSION["user_id"];
                         <div class="modal-body">
                             <form id="createPostForm" enctype="multipart/form-data">
                                 <textarea id="text-input" name="text-input" placeholder="What's on your mind?" maxlength="500" class="textarea"></textarea>
-                                <input type="file" name="image-input" id="picture" class="form-control" required>
+                                <input type="file" name="image-input[]" id="picture" class="form-control" multiple>
                                 <img id="createPostImagePreview" class="img-thumbnail mt-2" alt="Image Preview" style="display: none;">
                             </form>
                         </div>

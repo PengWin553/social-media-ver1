@@ -5,7 +5,7 @@ session_start();
 $user_id = $_SESSION["user_id"];
 
 try {
-    $query = "SELECT p.*, CONCAT('../images/', p.image_input) AS picture_url, u.user_id, u.first_name, u.last_name,
+    $query = "SELECT p.*, u.user_id, u.first_name, u.last_name,
                      (SELECT COUNT(*) FROM post_likes WHERE post_id = p.post_id) AS like_count,
                      (SELECT COUNT(*) FROM post_likes WHERE post_id = p.post_id AND user_id = :user_id) AS is_liked
               FROM posts_table p
@@ -20,6 +20,22 @@ try {
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+    // Loop image and convert to JSON
+    foreach ($result as &$post) {
+        if (!empty($post['image_input'])) {
+            $imgFilename = json_decode($post['image_input'], true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $post['picture_urls'] = array_map(function($filename) {
+                    return '../images/' . $filename;
+                }, $imgFilename);
+            } else {
+                $post['picture_urls'] = [];
+            }
+        } else {
+            $post['picture_urls'] = [];
+        }
+    }
+
     // Add user_id, first_name, and last_name to the data array
     $data = [
         "user_id" => $user_id,
@@ -30,5 +46,4 @@ try {
 } catch (PDOException $th) {
     echo json_encode(['res' => 'error', 'message' => $th->getMessage()]);
 }
-
 ?>
