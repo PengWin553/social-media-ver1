@@ -9,6 +9,14 @@ function loadData() {
           let userData = result.data; // Store user data object
           let fullName = userData.first_name + " " + userData.last_name;
           userData.result.forEach(item => { // Iterate over result array
+            
+            let imagesHtml = '';
+            if (item.picture_urls && Array.isArray(item.picture_urls) && item.picture_urls.length > 0) {
+                imagesHtml = item.picture_urls.map(url => `
+                    <div class="image-container">
+                        <img src="${url}" class="post-image card-img-top" alt="Post Image">
+                    </div>`).join('');
+            }
             let resultBox = `
               <div class="resultBox" >
                 <div class=".card-columns">
@@ -39,16 +47,7 @@ function loadData() {
                     <div class="card-body">
                       <p class="card-text" style="margin-top: -14px; margin-left: -0.66em;">${item.text_input}</p>
                       </div>
-                        ${item.picture_url ?
-                        
-                          `
-                            <div class="image-container">
-                              <img src="${item.picture_url}" class="post-image card-img-top" alt="Post Image">
-                            </div>
-                          `
-                          
-                          : ''}
-                      
+                         ${imagesHtml}
                         <div class="bottom-options-container">
                           <div class="like-button"><i class='bx bxs-like' ></i> <span>Like</span> </div>
                           <div class="comment-button open-comments-modal" id="${item.post_id}"><i class='bx bxs-comment'></i> <span>Comment</span> </div>
