@@ -35,10 +35,23 @@ function loadData() {
                         let imagesHtml = '';
 
                         if (item.picture_urls && Array.isArray(item.picture_urls) && item.picture_urls.length > 0) {
-                            imagesHtml = item.picture_urls.map(url => `
-                                <div class="image-container">
-                                    <img src="${url}" class="post-image card-img-top" alt="Post Image">
-                                </div>`).join('');
+                            imagesHtml = `
+                                <div id="carousel-${item.post_id}" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        ${item.picture_urls.map((url, index) => `
+                                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                                                <img src="${url}" class="d-block w-100" alt="Post Image">
+                                            </div>`).join('')}
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-${item.post_id}" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-${item.post_id}" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>`;
                         }
 
                         let resultBox = `
@@ -76,6 +89,9 @@ function loadData() {
                     }
                 });
 
+                // Initialize Bootstrap Carousel
+                $('.carousel').carousel();
+
                 // Add event listener for like buttons
                 $(".like-button").click(function() {
                     let postId = $(this).data("post-id");
@@ -108,6 +124,7 @@ function loadData() {
                         }
                     });
                 });
+
             } else {
                 alert("Failed to load product data.");
             }
